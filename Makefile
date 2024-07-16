@@ -6,7 +6,7 @@ include $(N64_INST)/include/n64.mk
 all: coingetter.z64
 .PHONY: all
 
-OBJS = $(BUILD_DIR)/main.o $(BUILD_DIR)/Player.o
+OBJS = $(BUILD_DIR)/main.o $(BUILD_DIR)/Player.o $(BUILD_DIR)/Enemy.o
 
 # Require DFS
 coingetter.z64: $(BUILD_DIR)/coingetter.dfs

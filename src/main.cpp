@@ -2,6 +2,7 @@
 #include <libdragon.h>
 #include <ctime>
 #include "Player.h"
+#include "Enemy.h"
 
 int getRandomNumberInRange(int min, int max) {
     // Ensure the range is valid
@@ -37,12 +38,11 @@ int main(void)
     // Initialize DFS
     dfs_init(DFS_DEFAULT_LOCATION);
 
-    // Load sprite for player
-    // sprite_t *player = sprite_load("rom:/player.sprite");
+    // Create player
     Player *player = new Player();
 
-    // Load sprite for enemy
-    sprite_t *enemy = sprite_load("rom:/enemy.sprite");
+    // Create enemy
+    Enemy *enemy = new Enemy();
 
     int posX = 0;
     int posY = 0;
@@ -56,6 +56,7 @@ int main(void)
         SI_controllers_state_t controller_state = get_keys_pressed();
 
         player->update(controller_state);
+        enemy->update();
 
         // Get the display input
         surface_t *display_surface = display_get();
@@ -65,6 +66,7 @@ int main(void)
 
         // Use the sprite
         player->draw(display_surface);
+        enemy->draw(display_surface);
 
         //graphics_draw_sprite_trans(display_surface, posX++, posY++, enemy);
 
