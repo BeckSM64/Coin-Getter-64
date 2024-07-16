@@ -27,7 +27,7 @@ int main(void)
     uint32_t background_color = graphics_make_color(20, 15, 36, 0);
 
     // Create display input
-    display_init( RESOLUTION_640x480, DEPTH_32_BPP, 2, GAMMA_NONE, FILTERS_RESAMPLE_ANTIALIAS );
+    display_init( RESOLUTION_640x480, DEPTH_32_BPP, 3, GAMMA_NONE, FILTERS_DISABLED );
 
     // Color for player
     //uint32_t player_color = graphics_make_color(255, 0, 0, 0);
@@ -43,9 +43,6 @@ int main(void)
 
     // Create enemy
     Enemy *enemy = new Enemy();
-
-    int posX = 0;
-    int posY = 0;
 
     // Initialize controller subsystem
     controller_init();
@@ -68,7 +65,7 @@ int main(void)
         player->draw(display_surface);
         enemy->draw(display_surface);
 
-        //graphics_draw_sprite_trans(display_surface, posX++, posY++, enemy);
+        //graphics_fill_screen(display_surface, background_color);
 
         // Show the display surface
         display_show(display_surface);

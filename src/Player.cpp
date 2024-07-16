@@ -49,18 +49,18 @@ void Player::draw(surface_t *display_surface) {
 void Player::update(SI_controllers_state_t &controller_state) {
 
     // Update player x velocity based on input
-    if (controller_state.c->x > 0) {
+    if (controller_state.c->x > 10) {
         velX = 3;
-    } else if (controller_state.c->x < 0) {
+    } else if (controller_state.c->x < -10) {
         velX = -3;
     } else {
         velX = 0;
     }
 
     // Update y velocity
-    if (controller_state.c->y > 0) {
+    if (controller_state.c->y > 10) {
         velY = -3;
-    } else if (controller_state.c->y < 0) {
+    } else if (controller_state.c->y < -10) {
         velY = 3;
     } else {
         velY = 0;
