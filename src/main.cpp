@@ -54,7 +54,7 @@ int main(void)
 
     // Load WAV file and play it
     wav64_t level_music;
-    wav64_open(&level_music, "rom:/renaissance.wav64");
+    wav64_open(&level_music, "rom:/endo.wav64");
     wav64_play(&level_music, 0);
 
     while(1) {

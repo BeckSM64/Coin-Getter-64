@@ -27,7 +27,7 @@ build_tools:
 # Convert audio files
 convert_audio_files: $(TOOLS_AUDIOCONV)
 	@echo "CONVERT AUDIO FILES TO N64 AUDIO FORMAT"
-	$(TOOLS_AUDIOCONV) --wav-loop true $(AUDIO_DIR)/*.wav
+	$(TOOLS_AUDIOCONV) --wav-loop true $(AUDIO_DIR)/*.mp3
 	mv *.wav64 $(FILESYSTEM_DIR)/
 
 # Tell the DFS which folders/files should be included
