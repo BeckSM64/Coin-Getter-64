@@ -47,7 +47,24 @@ int main(void)
     // Initialize controller subsystem
     controller_init();
 
+    // Init audio subsystem
+    audio_init(44100, 20);
+	mixer_init(32);
+	mixer_ch_set_limits(6, 0, 128000, 0);
+
+    // Load WAV file and play it
+    wav64_t level_music;
+    wav64_open(&level_music, "rom:/renaissance.wav64");
+    wav64_play(&level_music, 0);
+
     while(1) {
+
+        // Play audio, poll the mixer
+        if (audio_can_write()) {
+            short *buf = audio_write_begin();
+            mixer_poll(buf, audio_get_buffer_length());
+            audio_write_end();
+        }
         
         controller_scan();
         SI_controllers_state_t controller_state = get_keys_pressed();
@@ -69,5 +86,8 @@ int main(void)
 
         // Show the display surface
         display_show(display_surface);
+
+        // Stop a WAV file, will only need this if level is changed or something
+        //mixer_ch_stop(0);
     }
 }

@@ -6,7 +6,6 @@ AUDIO_DIR=$(RESOURCES_DIR)/audio
 AUDIO_OUTPUT_DIR=$(AUDIO_DIR)/audio64files
 FILESYSTEM_DIR=$(SOURCE_DIR)/filesystem
 WAV_FILES=$(wildcard $(AUDIO_DIR)/*.wav)
-AUDIO_OUTPUT_FILES=$(WAV_FILES)
 TOOLS_DIR=libdragon/tools
 TOOLS_AUDIOCONV=$(TOOLS_DIR)/audioconv64/audioconv64
 include $(N64_INST)/include/n64.mk
@@ -29,7 +28,7 @@ build_tools:
 convert_audio_files: $(TOOLS_AUDIOCONV)
 	@echo "CONVERT AUDIO FILES TO N64 AUDIO FORMAT"
 	$(TOOLS_AUDIOCONV) --wav-loop true $(AUDIO_DIR)/*.wav
-	mv *.wav64 $(AUDIO_OUTPUT_DIR)/
+	mv *.wav64 $(FILESYSTEM_DIR)/
 
 # Tell the DFS which folders/files should be included
 $(BUILD_DIR)/coingetter.dfs: $(wildcard $(FILESYSTEM_DIR)/*)
@@ -40,7 +39,6 @@ $(BUILD_DIR)/coingetter.elf: $(OBJS)
 
 clean:
 	rm -f $(BUILD_DIR)/* *.z64
-	rm -f $(AUDIO_OUTPUT_DIR)/*
 .PHONY: clean
 
 -include $(wildcard $(BUILD_DIR)/*.d)
