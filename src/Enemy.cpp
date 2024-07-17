@@ -1,5 +1,6 @@
 #include <libdragon.h>
 #include "Enemy.h"
+#include "Globals.h"
 
 Enemy::Enemy() {
     posX = 100;
@@ -53,13 +54,13 @@ void Enemy::update() {
     posY += velY;
 
     // Constrain to screen
-    if ((posX + enemy->width) >= 640) {
+    if ((posX + enemy->width) >= SCREEN_WIDTH) {
         velX *= -1;
     } else if (posX <= 0) {
         velX *= -1;
     }
 
-    if (posY + enemy->height >= 480) {
+    if (posY + enemy->height >= SCREEN_HEIGHT) {
         velY *= -1;
     } else if (posY <= 0) {
         velY *= -1;

@@ -1,5 +1,6 @@
 #include <libdragon.h>
 #include "Player.h"
+#include "Globals.h"
 
 Player::Player() {
     posX = 100;
@@ -50,18 +51,18 @@ void Player::update(SI_controllers_state_t &controller_state) {
 
     // Update player x velocity based on input
     if (controller_state.c->x > 10) {
-        velX = 3;
+        velX = 5;
     } else if (controller_state.c->x < -10) {
-        velX = -3;
+        velX = -5;
     } else {
         velX = 0;
     }
 
     // Update y velocity
     if (controller_state.c->y > 10) {
-        velY = -3;
+        velY = -5;
     } else if (controller_state.c->y < -10) {
-        velY = 3;
+        velY = 5;
     } else {
         velY = 0;
     }
@@ -71,14 +72,14 @@ void Player::update(SI_controllers_state_t &controller_state) {
     posY += velY;
 
     // Constrain to screen
-    if ((posX + player->width) > 640) {
-        posX = 640 - player->width;
+    if ((posX + player->width) > SCREEN_WIDTH) {
+        posX = SCREEN_WIDTH - player->width;
     } else if (posX < 0) {
         posX = 0;
     }
 
-    if (posY + player->height > 480) {
-        posY = 480 - player->height;
+    if (posY + player->height > SCREEN_HEIGHT) {
+        posY = SCREEN_HEIGHT - player->height;
     } else if (posY < 0) {
         posY = 0;
     }
