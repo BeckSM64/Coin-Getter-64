@@ -14,7 +14,7 @@ all: coingetter.z64 convert_audio_files build_tools
 .PHONY: all
 
 # Object files
-OBJS = $(BUILD_DIR)/main.o $(BUILD_DIR)/Player.o $(BUILD_DIR)/Enemy.o $(BUILD_DIR)/Game.o
+OBJS = $(BUILD_DIR)/main.o $(BUILD_DIR)/Player.o $(BUILD_DIR)/Enemy.o $(BUILD_DIR)/Game.o $(BUILD_DIR)/AudioManager.o
 
 # Require DFS
 coingetter.z64: $(BUILD_DIR)/coingetter.dfs
