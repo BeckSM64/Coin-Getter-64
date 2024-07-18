@@ -10,9 +10,10 @@ WAV_FILES=$(wildcard $(AUDIO_DIR)/*.wav)
 TOOLS_DIR=libdragon/tools
 TOOLS_AUDIOCONV=$(TOOLS_DIR)/audioconv64/audioconv64
 TOOLS_MKFONT=$(TOOLS_DIR)/mkfont/mkfont
+TOOLS_CHECKSUM64=$(TOOLS_DIR)/chksum64
 include $(N64_INST)/include/n64.mk
 
-all: build_tools convert_audio_files convert_font_files coingetter.z64
+all: build_tools convert_audio_files convert_font_files coingetter.z64 checksum
 .PHONY: all
 
 # Object files
@@ -44,6 +45,10 @@ $(BUILD_DIR)/coingetter.dfs: $(wildcard $(FILESYSTEM_DIR)/*)
 coingetter.z64: N64_ROM_TITLE="Coin Getter"
 
 $(BUILD_DIR)/coingetter.elf: $(OBJS)
+
+checksum: $(TOOLS_CHECKSUM64)
+	@echo "RUNNING CHECKSUM ON ROM"
+	$(TOOLS_CHECKSUM64) coingetter.z64
 
 clean:
 	rm -f $(BUILD_DIR)/* *.z64
