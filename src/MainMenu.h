@@ -1,5 +1,6 @@
 #pragma once
 #include "AudioManager.h"
+#include "Globals.h"
 
 class MainMenu {
 
@@ -14,5 +15,5 @@ class MainMenu {
         void update(joypad_inputs_t &controller_state);
         void draw(surface_t *display_surface);
         uint8_t getRandomNumberInRange(uint8_t min, uint8_t max);
-        bool startGame = false;
+        int currentGameState = states::MAINMENU;
 };

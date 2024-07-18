@@ -2,15 +2,15 @@
 #include "AudioManager.h"
 #include "MainMenu.h"
 #include "MainGameScreen.h"
+#include "Globals.h"
 
 class Game {
 
     private:
         MainMenu *mainMenu = nullptr;
         MainGameScreen *mainGameScreen = nullptr;
-
-        void update();
-        void draw();
+        int currentGameState;
+        void checkGameState();
 
     public:
         Game();

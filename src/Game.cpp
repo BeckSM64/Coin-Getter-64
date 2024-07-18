@@ -14,29 +14,15 @@ Game::Game() {
     // Initialize controller subsystem
     joypad_init();
 
-    mainMenu = new MainMenu();
+    // Current game state (Starts on Main Menu)
+    currentGameState = states::MAINMENU;
 }
 
-void Game::update() {
+void Game::run() {
 
     // Get controller input
     joypad_poll();
     joypad_inputs_t controller_state = joypad_get_inputs(JOYPAD_PORT_1);
-
-    if ( mainMenu != nullptr ) {
-        mainMenu->update(controller_state);
-
-        if ( mainMenu->startGame == true ) {
-            delete(mainMenu);
-            mainMenu = nullptr;
-            mainGameScreen = new MainGameScreen();
-        }
-    } else {
-        mainGameScreen->update(controller_state);
-    }
-}
-
-void Game::draw() {
 
     // Create a background color to fill screen
     uint32_t background_color = graphics_make_color(20, 15, 36, 0);
@@ -47,16 +33,47 @@ void Game::draw() {
     // Fill the screen with a solid color
     graphics_fill_screen(display_surface, background_color);
 
-    // Screen draws go here
-    if ( mainMenu != nullptr ) {
-        mainMenu->draw(display_surface);
-    } else {
-        mainGameScreen->draw(display_surface);
+    // Check and change game state if needed
+    switch (currentGameState) {
+
+        case states::MAINMENU:
+
+            // First check for nullptr
+            if ( mainMenu == nullptr ) {
+                mainMenu = new MainMenu();
+            }
+
+            mainMenu->update(controller_state);
+            mainMenu->draw(display_surface);
+
+            // Change state
+            if ( mainMenu->currentGameState != states::MAINMENU ) {
+                currentGameState = mainMenu->currentGameState;
+                delete(mainMenu);
+                mainMenu = nullptr;
+            }
+            break;
+
+        case states::GAMESCREEN:
+
+            // First check for nullptr
+            if ( mainGameScreen == nullptr ) {
+                mainGameScreen = new MainGameScreen();
+            }
+
+            mainGameScreen->update(controller_state);
+            mainGameScreen->draw(display_surface);
+
+            // Change state
+            if ( mainGameScreen->currentGameState != states::GAMESCREEN ) {
+                currentGameState = mainGameScreen->currentGameState;
+                delete(mainGameScreen);
+                mainGameScreen = nullptr;
+            }
+            break;
+
+        default:
+            break;
     }
-}
 
-void Game::run() {
-
-    update();
-    draw();
 }

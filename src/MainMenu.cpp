@@ -18,8 +18,6 @@ MainMenu::MainMenu() {
 
     // Register font
     rdpq_text_register_font(1, font);
-
-    startGame = false;
 }
 
 MainMenu::~MainMenu() {
@@ -36,7 +34,7 @@ void MainMenu::update(joypad_inputs_t &controller_state) {
 
     // Check for input
     if (controller_state.btn.start == 1) {
-        startGame = true; // Exit the main menu and start the game
+        currentGameState = states::GAMESCREEN; // Exit the main menu and start the game
     }
 }
 

@@ -1,10 +1,10 @@
 #pragma once
-#include "Screen.h"
+#include "Globals.h"
 #include "AudioManager.h"
 #include "Player.h"
 #include "Enemy.h"
 
-class MainGameScreen : public Screen {
+class MainGameScreen {
 
     private:
         AudioManager *audioManager = nullptr;
@@ -14,6 +14,7 @@ class MainGameScreen : public Screen {
     public:
         MainGameScreen();
         ~MainGameScreen();
-        void update(joypad_inputs_t &controller_state) override;
-        void draw(surface_t *display_surface) override;
+        void update(joypad_inputs_t &controller_state);
+        void draw(surface_t *display_surface);
+        int currentGameState = states::GAMESCREEN;
 };
