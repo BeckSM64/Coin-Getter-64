@@ -29,13 +29,13 @@ MainMenu::~MainMenu() {
     font = nullptr;
 }
 
-void MainMenu::update(SI_controllers_state_t &controller_state) {
+void MainMenu::update(joypad_inputs_t &controller_state) {
 
     // Play audio
     audioManager->playAudio();
 
     // Check for input
-    if (controller_state.c->start == 1) {
+    if (controller_state.btn.start == 1) {
         startGame = true; // Exit the main menu and start the game
     }
 }

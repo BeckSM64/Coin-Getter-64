@@ -11,7 +11,7 @@ Game::Game() {
     dfs_init(DFS_DEFAULT_LOCATION);
 
     // Initialize controller subsystem
-    controller_init();
+    joypad_init();
 
     // Create player
     player = new Player();
@@ -22,8 +22,8 @@ Game::Game() {
 void Game::update() {
 
     // Get controller input
-    controller_scan();
-    SI_controllers_state_t controller_state = get_keys_pressed();
+    joypad_poll();
+    joypad_inputs_t controller_state = joypad_get_inputs(JOYPAD_PORT_1);
 
     if (mainMenu != nullptr) {
 

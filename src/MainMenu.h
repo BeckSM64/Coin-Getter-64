@@ -11,7 +11,7 @@ class MainMenu {
     public:
         MainMenu();
         ~MainMenu();
-        void update(SI_controllers_state_t &controller_state);
+        void update(joypad_inputs_t &controller_state);
         void draw(surface_t *display_surface);
         uint8_t getRandomNumberInRange(uint8_t min, uint8_t max);
         bool startGame = false;

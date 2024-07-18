@@ -20,5 +20,5 @@ class Player {
         void setVelX(int velX);
         void setVelY(int velY);
         void draw(surface_t *display_surface);
-        void update(SI_controllers_state_t &controller_state);
+        void update(joypad_inputs_t &controller_state);
 };
