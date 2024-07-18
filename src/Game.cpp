@@ -1,6 +1,7 @@
 #include <libdragon.h>
 #include "Game.h"
 #include "MainMenu.h"
+#include "MainGameScreen.h"
 
 Game::Game() {
 
@@ -13,9 +14,6 @@ Game::Game() {
     // Initialize controller subsystem
     joypad_init();
 
-    // Create player
-    player = new Player();
-    enemy = new Enemy();
     mainMenu = new MainMenu();
 }
 
@@ -25,28 +23,16 @@ void Game::update() {
     joypad_poll();
     joypad_inputs_t controller_state = joypad_get_inputs(JOYPAD_PORT_1);
 
-    if (mainMenu != nullptr) {
-
+    if ( mainMenu != nullptr ) {
         mainMenu->update(controller_state);
 
-        // Check if game has been started
-        if ( mainMenu->startGame ) {
+        if ( mainMenu->startGame == true ) {
             delete(mainMenu);
             mainMenu = nullptr;
+            mainGameScreen = new MainGameScreen();
         }
     } else {
-
-        if (audioManager == nullptr) {
-            // Create audio manager
-            audioManager = new AudioManager();
-        }
-
-        // Update entities
-        player->update(controller_state);
-        enemy->update();
-
-        // Play audio
-        audioManager->playAudio();
+        mainGameScreen->update(controller_state);
     }
 }
 
@@ -61,18 +47,11 @@ void Game::draw() {
     // Fill the screen with a solid color
     graphics_fill_screen(display_surface, background_color);
 
-    if (mainMenu != nullptr) {
-
+    // Screen draws go here
+    if ( mainMenu != nullptr ) {
         mainMenu->draw(display_surface);
-
     } else {
-
-        // Draw entities
-        player->draw(display_surface);
-        enemy->draw(display_surface);
-
-        // Show the display surface
-        display_show(display_surface);
+        mainGameScreen->draw(display_surface);
     }
 }
 

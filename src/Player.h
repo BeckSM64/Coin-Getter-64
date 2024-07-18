@@ -1,3 +1,4 @@
+#pragma once
 #include <libdragon.h>
 
 class Player {
