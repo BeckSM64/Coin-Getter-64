@@ -13,10 +13,7 @@ int getRandomNumberInRange(int min, int max) {
     return rand() % (max - min + 1) + min;
 }
 
-int main(void)
-{
-    // Seed the random number generator
-    srand(time(0));
+int main(void) {
 
     // Create game object to manage game
     Game *game = new Game();

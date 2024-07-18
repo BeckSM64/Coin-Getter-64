@@ -34,7 +34,6 @@ void Player::setPosY(int y) {
     posY = y;
 }
 
-
 void Player::setVelX(int velX) {
     this->velX = velX;
 }

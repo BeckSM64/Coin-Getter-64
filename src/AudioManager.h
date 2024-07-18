@@ -1,3 +1,5 @@
+#pragma once
+
 #include <libdragon.h>
 
 class AudioManager {
@@ -7,5 +9,6 @@ class AudioManager {
 
     public:
         AudioManager();
+        ~AudioManager();
         void playAudio();
 };

@@ -13,6 +13,12 @@ AudioManager::AudioManager() {
     wav64_play(&level_music, 0);
 }
 
+AudioManager::~AudioManager() {
+
+    mixer_ch_stop(0);
+    mixer_close();
+}
+
 void AudioManager::playAudio() {
 
     // Play audio, poll the mixer

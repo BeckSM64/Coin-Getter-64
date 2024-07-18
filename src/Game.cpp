@@ -1,5 +1,6 @@
 #include <libdragon.h>
 #include "Game.h"
+#include "MainMenu.h"
 
 Game::Game() {
 
@@ -15,9 +16,7 @@ Game::Game() {
     // Create player
     player = new Player();
     enemy = new Enemy();
-
-    // Create audio manager
-    audioManager = new AudioManager();
+    mainMenu = new MainMenu();
 }
 
 void Game::update() {
@@ -26,12 +25,29 @@ void Game::update() {
     controller_scan();
     SI_controllers_state_t controller_state = get_keys_pressed();
 
-    // Update entities
-    player->update(controller_state);
-    enemy->update();
+    if (mainMenu != nullptr) {
 
-    // Play audio
-    audioManager->playAudio();
+        mainMenu->update(controller_state);
+
+        // Check if game has been started
+        if ( mainMenu->startGame ) {
+            delete(mainMenu);
+            mainMenu = nullptr;
+        }
+    } else {
+
+        if (audioManager == nullptr) {
+            // Create audio manager
+            audioManager = new AudioManager();
+        }
+
+        // Update entities
+        player->update(controller_state);
+        enemy->update();
+
+        // Play audio
+        audioManager->playAudio();
+    }
 }
 
 void Game::draw() {
@@ -45,12 +61,19 @@ void Game::draw() {
     // Fill the screen with a solid color
     graphics_fill_screen(display_surface, background_color);
 
-    // Draw entities
-    player->draw(display_surface);
-    enemy->draw(display_surface);
+    if (mainMenu != nullptr) {
 
-    // Show the display surface
-    display_show(display_surface);
+        mainMenu->draw(display_surface);
+
+    } else {
+
+        // Draw entities
+        player->draw(display_surface);
+        enemy->draw(display_surface);
+
+        // Show the display surface
+        display_show(display_surface);
+    }
 }
 
 void Game::run() {
